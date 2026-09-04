@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-body text-olive-900 bg-cream-50 antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-wide;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-green px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-brand-green-dark hover:shadow-lg active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-gold px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-brand-gold-dark hover:shadow-lg active:scale-95;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-brand-green px-6 py-3 font-semibold text-brand-green transition-all duration-300 hover:bg-brand-green hover:text-white active:scale-95;
+  }
+  .card {
+    @apply rounded-2xl bg-white shadow-md transition-all duration-300 hover:shadow-xl;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide;
+  }
+  .badge-veg {
+    @apply bg-olive-100 text-olive-700;
+  }
+  .badge-spicy {
+    @apply bg-brick-100 text-brick-700;
+  }
+  .badge-dessert {
+    @apply bg-cream-200 text-brick-600;
+  }
+  .section-title {
+    @apply font-display text-3xl md:text-4xl text-brand-green uppercase tracking-wide mb-2;
+  }
+  .section-subtitle {
+    @apply text-olive-600 text-lg mb-8;
+  }
+}
+
+/* Masonry gallery */
+.masonry {
+  column-count: 1;
+  column-gap: 1rem;
+}
+@media (min-width: 640px) {
+  .masonry { column-count: 2; }
+}
+@media (min-width: 1024px) {
+  .masonry { column-count: 3; }
+}
+@media (min-width: 1280px) {
+  .masonry { column-count: 4; }
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* Carousel transitions */
+.carousel-slide {
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+/* Hide scrollbar for carousel nav */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
