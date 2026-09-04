@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Menu</title>
+<link href="css/styles.css" rel="stylesheet"/>
+</head>
+<style>
+  table.menu {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table.menu th,
+  table.menu td {
+    border: 1px solid var(--primary-gray);
+    padding: 0.5rem;
+    text-align: left;
+  }
+
+  table.menu th {
+    background: var(--primary-color);
+    color: var(--primary-white);
+  }
+
+  table.menu tr:nth-child(even) {
+    background: var(--secondary-gray);
+  }
+
+  table.menu td span {
+    font-weight: bold;
+    display: block;
+  }
+
+  td[data-pizza-type="spicy"] span::after {
+    content: "🌶️ ";
+    color: red;
+  }
+
+  td[data-pizza-type="vegetarian"] span::after {
+    content: "🥬";
+    color: green;
+  }
+  td[data-pizza-type="dessert"] span::after {
+    content: "🍰";
+    color: brown;
+  }
+</style>
+<body>
+<h1>Menu</h1>
+<p>Les chefs d&rsquo;œuvres de Louis, pizza pour tous les goûts. L&rsquo;art culinaire de notre chef digne du Roi Soleil saura vous surprendre avec ses pointes en folie. Si vous commandez souvent, nous vous suggérons d&rsquo;imprimer <a href="../menu.pdf">notre menu au format PDF</a>.</p>
+<h2>Pizzas</h2>
+<table  class="menu">
+  <thead>
+    <tr>
+      <th class="titre">Pizza</th>
+      <th>P</th>
+      <th>M</th>
+      <th>G</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-pizza-type="spicy"><span>Trois mousquetaires</span> Saucisses chorizo, merguez, saucisses italiennes fortes, piments jalapeños, oignons, gruyère, cheddar fort et sauce tomate.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Cardinal Richelieu</span> Nappée d&rsquo;une sauce tomate sucrée avec un soupçon de miel, pancetta grillé, parmesan, mozzarella et origan.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Marie-Antoinette</span> Riche couche de prosciutto, aubergines grillés, boccoccini et une sauce tomates/pesto.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+    <tr>
+      <td data-pizza-type="vegetarian"><span>Révolution Française</span> Poivrons verts, tomates séchées, oignons rouges, aubergines grillées, mozzarella, huile d&rsquo;olive et sauce blanche.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Flotte royale</span> Saumon fumé, crevettes fraîches, câpres, oignons rouges, gruyère,   coriandre et sauce rosée.</td>
+      <td>14&nbsp;$</td>
+      <td>18&nbsp;$</td>
+      <td>22&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Vivante campagne</span> Oignons doux, viande fumée, pommes de terre et sauce chipotle.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+    <tr>
+      <td data-pizza-type="dessert"><span>Bastille en danger</span> Tranches de poires, coulis de chocolat, crème anglaise avec un soupçon de kirsch.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+    <tr>
+      <td data-pizza-type="spicy"><span>Pouvoir du roi</span> Merguez, bœuf haché, pepperoni, jambon, bacon, olives noires et sauce épicée aux tomates fraîches.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+    <tr>
+      <td data-pizza-type="spicy"><span>La guillotine</span> Mozzarella, sauce piquante, chorizo, salami de gênes et piments forts.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+    <tr>
+      <td data-pizza-type="vegetarian"><span>Absolutisme transparent</span> Mozzarella, parmesan, feta, cheddar vieilli, ricotta, épinards, ail rôti et sauce maison au vin blanc.</td>
+      <td>12&nbsp;$</td>
+      <td>16&nbsp;$</td>
+      <td>18&nbsp;$</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Salades</h2>
+<table class="menu">
+  <thead>
+    <tr>
+      <th>Salade</th>
+      <th>Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span>Salade César</span></td>
+      <td>8&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Salade Niçoise</span></td>
+      <td>9&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Salade de quinoa</span></td>
+      <td>10&nbsp;$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Boissons</h2>
+<table class="menu">
+  <thead>
+    <tr>
+      <th>Boisson</th>
+      <th>Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span>Coca-Cola</span></td>
+      <td>2&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Sprite</span></td>
+      <td>2&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Fanta</span></td>
+      <td>2&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Eau minérale</span></td>
+      <td>1&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Jus d'orange</span></td>
+      <td>3&nbsp;$</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Desserts</h2>
+<table class="menu">
+  <thead>
+    <tr>
+      <th>Dessert</th>
+      <th>Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span>Tiramisu</span></td>
+      <td>9&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Gâteau au fromage</span></td>
+      <td>9&nbsp;$</td>
+    </tr>
+    <tr>
+      <td><span>Crème brûlée</span></td>
+      <td>6&nbsp;$</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
