@@ -136,7 +136,7 @@ export const saladImages: Record<string, string> = {
 
 export const salads: MenuItem[] = [
   { id: 'salade-cesar', name: 'Salade César', description: { fr: 'Laitue romaine, croûtons, parmesan, sauce César.', en: 'Romaine lettuce, croutons, Parmesan, Caesar dressing.' }, saladPrices: { entree: 8, repas: 12 }, image: saladImages['salade-cesar'], badges: [] },
-  { id: 'salade-nicoise', name: 'Salade Niçoise', description: { fr: 'Thon, haricots verts, tomates, œufs, olives, anchois.', en: 'Tuna, green beans, tomatoes, eggs, olives, anchovies.' }, saladPrices: { entree: 9, repas: 13 }, image: saladImages['salade-nicoise'], badges: [] },
+  { id: 'salade-nicoise', name: 'Salade Niçoise', description: { fr: 'Thon, haricots verts, tomates, œufs, olives, anchois.', en: 'Tuna, green beans, tomatoes, eggs, olives, anchovies.' }, saladPrices: { entree: 9, repas: 20 }, image: saladImages['salade-nicoise'], badges: [] },
   { id: 'salade-quinoa', name: 'Salade de Quinoa', description: { fr: 'Quinoa, légumes grillés, feta, vinaigrette au citron.', en: 'Quinoa, grilled vegetables, feta, lemon vinaigrette.' }, saladPrices: { entree: 10, repas: 14 }, image: saladImages['salade-quinoa'], badges: ['veg'] },
 ]
 
