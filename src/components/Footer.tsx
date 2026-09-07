@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo */}
           <div>
-            <img src="/images/iu/logo-couleur.png" alt="Pointe en folie" className="h-20 w-auto mb-4" />
+            <img src="/images/iu/logo-couleur.png" alt="Pointe en folie" className="h-20 w-auto mb-4 bg-cream-50 rounded-xl px-3 py-2" />
             <p className="text-cream-200 text-sm">
               {t('home.tagline')}
             </p>
