@@ -30,7 +30,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <img src="/images/iu/logo.svg" alt="Pointe en folie" className="h-12 w-auto" />
+            <img src="/images/iu/logo.svg" alt="Pointe en folie" className="h-20 w-auto" />
           </Link>
 
           {/* Desktop nav */}
