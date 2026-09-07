@@ -55,6 +55,8 @@ const dict: Dict = {
   'menu.veg': { fr: 'Végétarien', en: 'Vegetarian' },
   'menu.spicy': { fr: 'Épicé', en: 'Spicy' },
   'menu.dessertBadge': { fr: 'Dessert', en: 'Dessert' },
+  'menu.entree': { fr: 'Entrée', en: 'Starter' },
+  'menu.repas': { fr: 'Repas', en: 'Main' },
   'menu.small': { fr: 'Petite (P)', en: 'Small (S)' },
   'menu.medium': { fr: 'Moyenne (M)', en: 'Medium (M)' },
   'menu.large': { fr: 'Grande (G)', en: 'Large (L)' },

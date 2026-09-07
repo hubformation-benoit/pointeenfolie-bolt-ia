@@ -7,7 +7,6 @@ import { useCart } from '../CartContext'
 function Badge({ type, label }: { type: string; label: string }) {
   if (type === 'veg') return <span className="badge badge-veg">🥬 {label}</span>
   if (type === 'spicy') return <span className="badge badge-spicy">🌶 {label}</span>
-  if (type === 'dessert') return <span className="badge badge-dessert">🍰 {label}</span>
   return null
 }
 
@@ -34,7 +33,7 @@ function PizzaCard({ item }: { item: MenuItem }) {
         <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
         <div className="absolute top-3 right-3 flex flex-col gap-1">
           {item.badges.map(b => (
-            <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : b === 'spicy' ? t('menu.spicy') : t('menu.dessertBadge')} />
+            <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : t('menu.spicy')} />
           ))}
         </div>
       </div>
@@ -66,6 +65,100 @@ function PizzaCard({ item }: { item: MenuItem }) {
   )
 }
 
+function SaladCard({ item }: { item: MenuItem }) {
+  const { lang, t } = useLang()
+  const { addItem } = useCart()
+  const [selectedPortion, setSelectedPortion] = useState<'entree' | 'repas'>('repas')
+
+  const handleAdd = () => {
+    addItem({
+      id: `${item.id}-${selectedPortion}`,
+      name: { fr: item.name, en: item.name },
+      size: selectedPortion === 'entree' ? t('menu.entree') : t('menu.repas'),
+      price: item.saladPrices![selectedPortion],
+      qty: 1,
+    })
+  }
+
+  return (
+    <div className="card overflow-hidden group flex flex-col">
+      <div className="relative h-48 overflow-hidden">
+        <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        <div className="absolute top-3 right-3 flex flex-col gap-1">
+          {item.badges.map(b => (
+            <Badge key={b} type={b} label={t('menu.veg')} />
+          ))}
+        </div>
+      </div>
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="font-display text-lg text-brand-green uppercase tracking-wide mb-2">{item.name}</h3>
+        <p className="text-olive-600 text-sm mb-3 flex-1">{item.description[lang]}</p>
+        <div className="space-y-2">
+          <div className="flex gap-2">
+            <button
+              onClick={() => setSelectedPortion('entree')}
+              className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
+                selectedPortion === 'entree'
+                  ? 'bg-brand-green text-white'
+                  : 'bg-olive-100 text-olive-700 hover:bg-olive-200'
+              }`}
+            >
+              {t('menu.entree')} · {item.saladPrices!.entree}$
+            </button>
+            <button
+              onClick={() => setSelectedPortion('repas')}
+              className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
+                selectedPortion === 'repas'
+                  ? 'bg-brand-green text-white'
+                  : 'bg-olive-100 text-olive-700 hover:bg-olive-200'
+              }`}
+            >
+              {t('menu.repas')} · {item.saladPrices!.repas}$
+            </button>
+          </div>
+          <button onClick={handleAdd} className="btn-primary w-full text-sm py-2">
+            {t('menu.addToCart')} · {item.saladPrices![selectedPortion]}$
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DessertCard({ item }: { item: MenuItem }) {
+  const { lang, t } = useLang()
+  const { addItem } = useCart()
+
+  const handleAdd = () => {
+    addItem({
+      id: item.id,
+      name: { fr: item.name, en: item.name },
+      price: item.price!,
+      qty: 1,
+    })
+  }
+
+  return (
+    <div className="card overflow-hidden group flex flex-col">
+      <div className="relative h-48 overflow-hidden">
+        <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        <div className="absolute top-3 right-3 flex flex-col gap-1">
+          {item.badges.map(b => (
+            <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : t('menu.spicy')} />
+          ))}
+        </div>
+      </div>
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="font-display text-lg text-brand-green uppercase tracking-wide mb-2">{item.name}</h3>
+        <p className="text-olive-600 text-sm mb-3 flex-1">{item.description[lang]}</p>
+        <button onClick={handleAdd} className="btn-primary w-full text-sm py-2">
+          {t('menu.addToCart')} · {item.price}$
+        </button>
+      </div>
+    </div>
+  )
+}
+
 function SimpleItem({ item }: { item: MenuItem }) {
   const { lang, t } = useLang()
   const { addItem } = useCart()
@@ -85,7 +178,7 @@ function SimpleItem({ item }: { item: MenuItem }) {
         <div className="flex items-center gap-2 mb-1">
           <h3 className="font-display text-base text-brand-green uppercase tracking-wide">{item.name}</h3>
           {item.badges.map(b => (
-            <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : b === 'spicy' ? t('menu.spicy') : t('menu.dessertBadge')} />
+            <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : t('menu.spicy')} />
           ))}
         </div>
         <p className="text-olive-600 text-sm">{item.description[lang]}</p>
@@ -142,8 +235,8 @@ export default function MenuPage() {
         </div>
       )}
       {tab === 'salads' && (
-        <div className="grid sm:grid-cols-2 gap-4 animate-fade-in">
-          {salads.map(item => <SimpleItem key={item.id} item={item} />)}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+          {salads.map(item => <SaladCard key={item.id} item={item} />)}
         </div>
       )}
       {tab === 'drinks' && (
@@ -152,8 +245,8 @@ export default function MenuPage() {
         </div>
       )}
       {tab === 'desserts' && (
-        <div className="grid sm:grid-cols-2 gap-4 animate-fade-in">
-          {desserts.map(item => <SimpleItem key={item.id} item={item} />)}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+          {desserts.map(item => <DessertCard key={item.id} item={item} />)}
         </div>
       )}
     </div>

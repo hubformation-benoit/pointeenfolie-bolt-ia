@@ -7,6 +7,7 @@ export interface MenuItem {
   name: string
   description: { fr: string; en: string }
   prices?: { P: number; M: number; G: number }
+  saladPrices?: { entree: number; repas: number }
   price?: number
   image?: string
   badges: string[]

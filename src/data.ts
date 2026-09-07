@@ -127,10 +127,17 @@ export const pizzas: MenuItem[] = [
   },
 ]
 
+// Placeholder salad images from Pexels — replace with real product photos later
+export const saladImages: Record<string, string> = {
+  'salade-cesar': 'https://images.pexels.com/photos/2291344/pexels-photo-2291344.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'salade-nicoise': 'https://images.pexels.com/photos/31212423/pexels-photo-31212423.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'salade-quinoa': 'https://images.pexels.com/photos/4553029/pexels-photo-4553029.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+}
+
 export const salads: MenuItem[] = [
-  { id: 'salade-cesar', name: 'Salade César', description: { fr: 'Laitue romaine, croûtons, parmesan, sauce César.', en: 'Romaine lettuce, croutons, Parmesan, Caesar dressing.' }, price: 8, badges: [] },
-  { id: 'salade-nicoise', name: 'Salade Niçoise', description: { fr: 'Thon, haricots verts, tomates, œufs, olives, anchois.', en: 'Tuna, green beans, tomatoes, eggs, olives, anchovies.' }, price: 9, badges: [] },
-  { id: 'salade-quinoa', name: 'Salade de Quinoa', description: { fr: 'Quinoa, légumes grillés, feta, vinaigrette au citron.', en: 'Quinoa, grilled vegetables, feta, lemon vinaigrette.' }, price: 10, badges: ['veg'] },
+  { id: 'salade-cesar', name: 'Salade César', description: { fr: 'Laitue romaine, croûtons, parmesan, sauce César.', en: 'Romaine lettuce, croutons, Parmesan, Caesar dressing.' }, saladPrices: { entree: 8, repas: 12 }, image: saladImages['salade-cesar'], badges: [] },
+  { id: 'salade-nicoise', name: 'Salade Niçoise', description: { fr: 'Thon, haricots verts, tomates, œufs, olives, anchois.', en: 'Tuna, green beans, tomatoes, eggs, olives, anchovies.' }, saladPrices: { entree: 9, repas: 13 }, image: saladImages['salade-nicoise'], badges: [] },
+  { id: 'salade-quinoa', name: 'Salade de Quinoa', description: { fr: 'Quinoa, légumes grillés, feta, vinaigrette au citron.', en: 'Quinoa, grilled vegetables, feta, lemon vinaigrette.' }, saladPrices: { entree: 10, repas: 14 }, image: saladImages['salade-quinoa'], badges: ['veg'] },
 ]
 
 export const drinks: MenuItem[] = [
@@ -141,10 +148,17 @@ export const drinks: MenuItem[] = [
   { id: 'jus-orange', name: 'Jus d\'orange', description: { fr: 'Fraîchement pressé', en: 'Freshly squeezed' }, price: 3, badges: [] },
 ]
 
+// Placeholder dessert images from Pexels — replace with real product photos later
+export const dessertImages: Record<string, string> = {
+  'tiramisu': 'https://images.pexels.com/photos/19119979/pexels-photo-19119979.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'gateau-fromage': 'https://images.pexels.com/photos/29653160/pexels-photo-29653160.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  'creme-brulee': 'https://images.pexels.com/photos/9012594/pexels-photo-9012594.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+}
+
 export const desserts: MenuItem[] = [
-  { id: 'tiramisu', name: 'Tiramisu', description: { fr: 'Mascarpone, café, cacao, biscuits savoiardi.', en: 'Mascarpone, coffee, cocoa, ladyfingers.' }, price: 9, badges: ['dessert'] },
-  { id: 'gateau-fromage', name: 'Gâteau au fromage', description: { fr: 'Cheesecake maison, coulis de fruits rouges.', en: 'Homemade cheesecake, berry coulis.' }, price: 9, badges: ['dessert'] },
-  { id: 'creme-brulee', name: 'Crème brûlée', description: { fr: 'Vanille de Madagascar, caramel craquant.', en: 'Madagascar vanilla, crackling caramel.' }, price: 6, badges: ['dessert'] },
+  { id: 'tiramisu', name: 'Tiramisu', description: { fr: 'Mascarpone, café, cacao, biscuits savoiardi.', en: 'Mascarpone, coffee, cocoa, ladyfingers.' }, price: 9, image: dessertImages['tiramisu'], badges: [] },
+  { id: 'gateau-fromage', name: 'Gâteau au fromage', description: { fr: 'Cheesecake maison, coulis de fruits rouges.', en: 'Homemade cheesecake, berry coulis.' }, price: 9, image: dessertImages['gateau-fromage'], badges: [] },
+  { id: 'creme-brulee', name: 'Crème brûlée', description: { fr: 'Vanille de Madagascar, caramel craquant.', en: 'Madagascar vanilla, crackling caramel.' }, price: 6, image: dessertImages['creme-brulee'], badges: [] },
 ]
 
 export const promotions: Promotion[] = [
