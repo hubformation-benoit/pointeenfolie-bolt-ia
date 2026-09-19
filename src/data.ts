@@ -214,9 +214,14 @@ export const siteInfo = {
   email: 'info@pointeenfolie.com',
 }
 
-export const siteAlert = {
+export const siteAlertOld = {
   fr: "Attention! Ce site est généré par l'IA et la pizzéria n'existe pas vraiment. Si vous voulez apprendre comment faire un site comme ceci, contactez-nous à info@hubformation.ca",
   en: "Warning! This website is AI-generated and the pizzeria is not real. If you want to learn how to build a site like this, contact us at info@hubformation.ca",
+}
+
+export const siteAlert = {
+  fr: "",
+  en: "",
 }
 
 // Masonry gallery images — placeholder photos from Pexels
