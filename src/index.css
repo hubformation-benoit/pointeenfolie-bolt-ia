@@ -74,3 +74,16 @@
 /* Hide scrollbar for carousel nav */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Print: ensure logos and images render */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  img {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
