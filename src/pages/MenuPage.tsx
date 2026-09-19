@@ -8,6 +8,7 @@ import { useCart } from '../CartContext'
 function Badge({ type, label }: { type: string; label: string }) {
   if (type === 'veg') return <span className="badge badge-veg">🥬 {label}</span>
   if (type === 'spicy') return <span className="badge badge-spicy">🌶 {label}</span>
+  if (type === 'dessert') return <span className="badge badge-dessert">🍰 {label}</span>
   return null
 }
 
@@ -34,7 +35,7 @@ function PizzaCard({ item }: { item: MenuItem }) {
         <img src={item.image} alt={itemName(item, lang)} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
         <div className="absolute top-3 right-3 flex flex-col gap-1">
           {item.badges.map(b => (
-            <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : t('menu.spicy')} />
+            <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : b === 'spicy' ? t('menu.spicy') : b === 'dessert' ? t('menu.dessertBadge') : ''} />
           ))}
         </div>
       </div>
