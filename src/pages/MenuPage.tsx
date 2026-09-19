@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../LanguageContext'
-import { pizzas, salads, drinks, desserts } from '../data'
+import { useData } from '../lib/DataContext'
 import type { MenuItem, PizzaSize } from '../types'
 import { itemName, itemNameBoth } from '../types'
 import { useCart } from '../CartContext'
@@ -16,8 +16,6 @@ function PizzaCard({ item }: { item: MenuItem }) {
   const { lang, t } = useLang()
   const { addItem } = useCart()
   const [selectedSize, setSelectedSize] = useState<PizzaSize>('M')
-
-
 
   const handleAdd = () => {
     addItem({
@@ -197,6 +195,7 @@ function SimpleItem({ item }: { item: MenuItem }) {
 
 export default function MenuPage() {
   const { t } = useLang()
+  const { pizzas, salads, drinks, desserts } = useData()
   const [tab, setTab] = useState<'pizzas' | 'salads' | 'drinks' | 'desserts'>('pizzas')
 
   const tabs = [

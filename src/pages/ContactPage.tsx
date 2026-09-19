@@ -1,8 +1,9 @@
 import { useLang } from '../LanguageContext'
-import { siteInfo, openHours } from '../data'
+import { useData } from '../lib/DataContext'
 
 export default function ContactPage() {
   const { lang, t } = useLang()
+  const { openHours, siteInfo } = useData()
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

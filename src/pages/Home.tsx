@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../LanguageContext'
-import { carouselPizzas, weeklyEvent, promotions, openHours, siteInfo, galleryImages } from '../data'
+import { useData } from '../lib/DataContext'
 
 function Carousel() {
   const { lang } = useLang()
+  const { carouselPizzas } = useData()
   const [current, setCurrent] = useState(0)
   const [paused, setPaused] = useState(false)
 
-  const next = useCallback(() => setCurrent(c => (c + 1) % carouselPizzas.length), [])
+  const next = useCallback(() => setCurrent(c => (c + 1) % carouselPizzas.length), [carouselPizzas.length])
   const prev = () => setCurrent(c => (c - 1 + carouselPizzas.length) % carouselPizzas.length)
 
   useEffect(() => {
@@ -76,6 +77,7 @@ function Carousel() {
 
 function EventBlock() {
   const { lang, t } = useLang()
+  const { weeklyEvent } = useData()
   const eventDate = new Date(weeklyEvent.date + 'T' + weeklyEvent.time)
   const dateStr = eventDate.toLocaleDateString(lang === 'fr' ? 'fr-CA' : 'en-US', {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
@@ -115,6 +117,7 @@ function EventBlock() {
 
 function PromotionsBlock() {
   const { lang } = useLang()
+  const { promotions } = useData()
   return (
     <div className="space-y-4">
       {promotions.map((promo, i) => (
@@ -129,6 +132,7 @@ function PromotionsBlock() {
 
 function HoursAddressBlock() {
   const { lang, t } = useLang()
+  const { openHours, siteInfo } = useData()
   return (
     <div className="card p-6">
       <h3 className="font-display text-xl text-brand-green uppercase tracking-wide mb-4">{t('home.hoursAddress')}</h3>
@@ -150,6 +154,7 @@ function HoursAddressBlock() {
 
 function MasonryGallery() {
   const { lang, t } = useLang()
+  const { galleryImages } = useData()
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="text-center mb-8">

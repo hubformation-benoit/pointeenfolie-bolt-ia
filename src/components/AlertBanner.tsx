@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { siteAlert } from '../data'
+import { useData } from '../lib/DataContext'
 import { useLang } from '../LanguageContext'
 
 export default function AlertBanner() {
   const { lang } = useLang()
+  const { siteAlert } = useData()
   const [visible, setVisible] = useState(true)
 
   if (!visible || !siteAlert[lang]) return null

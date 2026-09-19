@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useLang } from '../LanguageContext'
-import { siteInfo, openHours } from '../data'
+import { useData } from '../lib/DataContext'
 
 export default function Header() {
   const { lang, setLang, t, path } = useLang()
+  const { siteInfo, openHours } = useData()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
