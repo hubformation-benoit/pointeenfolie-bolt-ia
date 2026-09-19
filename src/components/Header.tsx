@@ -4,7 +4,7 @@ import { useLang } from '../LanguageContext'
 import { siteInfo, openHours } from '../data'
 
 export default function Header() {
-  const { lang, setLang, t } = useLang()
+  const { lang, setLang, t, path } = useLang()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -29,7 +29,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
+          <Link to={path('/')} className="flex items-center gap-2 shrink-0">
             <img src="/images/iu/logo.svg" alt="Pointe en folie" className="h-20 w-auto" />
           </Link>
 
@@ -38,7 +38,8 @@ export default function Header() {
             {navItems.map(item => (
               <NavLink
                 key={item.to}
-                to={item.to}
+                to={path(item.to)}
+                end={item.to === '/'}
                 className={({ isActive }) =>
                   `px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                     isActive
@@ -129,7 +130,8 @@ export default function Header() {
             {navItems.map(item => (
               <NavLink
                 key={item.to}
-                to={item.to}
+                to={path(item.to)}
+                end={item.to === '/'}
                 onClick={() => setMobileOpen(false)}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-lg font-medium transition-all ${

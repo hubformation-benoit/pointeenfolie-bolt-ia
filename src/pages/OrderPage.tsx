@@ -5,7 +5,7 @@ import { useCart } from '../CartContext'
 import { promoCodes } from '../data'
 
 export default function OrderPage() {
-  const { lang, t } = useLang()
+  const { lang, t, path } = useLang()
   const { items, removeItem, updateQty, clear } = useCart()
 
   const [mode, setMode] = useState<'delivery' | 'pickup'>('delivery')
@@ -48,7 +48,7 @@ export default function OrderPage() {
           </div>
           <h1 className="section-title">{t('order.orderConfirmed')}</h1>
           <p className="text-olive-700 text-lg mb-6">{t('order.confirmMsg')}</p>
-          <Link to="/" className="btn-primary">{t('nav.home')}</Link>
+          <Link to={path('/')} className="btn-primary">{t('nav.home')}</Link>
         </div>
       </div>
     )
@@ -145,7 +145,7 @@ export default function OrderPage() {
             {items.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-olive-500 mb-4">{t('order.emptyCart')}</p>
-                <Link to="/menu" className="btn-outline text-sm">{t('order.browseMenu')}</Link>
+                <Link to={path('/menu')} className="btn-outline text-sm">{t('order.browseMenu')}</Link>
               </div>
             ) : (
               <>

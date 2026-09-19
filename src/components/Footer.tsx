@@ -3,7 +3,7 @@ import { useLang } from '../LanguageContext'
 import { siteInfo } from '../data'
 
 export default function Footer() {
-  const { t } = useLang()
+  const { t, path } = useLang()
   return (
     <footer className="bg-olive-900 text-cream-100 mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -36,10 +36,10 @@ export default function Footer() {
               {t('nav.home')}
             </h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/menu" className="text-cream-200 hover:text-brand-gold transition-colors">{t('nav.menu')}</Link></li>
-              <li><Link to="/order" className="text-cream-200 hover:text-brand-gold transition-colors">{t('nav.order')}</Link></li>
-              <li><Link to="/about" className="text-cream-200 hover:text-brand-gold transition-colors">{t('nav.about')}</Link></li>
-              <li><Link to="/contact" className="text-cream-200 hover:text-brand-gold transition-colors">{t('nav.contact')}</Link></li>
+              <li><Link to={path('/menu')} className="text-cream-200 hover:text-brand-gold transition-colors">{t('nav.menu')}</Link></li>
+              <li><Link to={path('/order')} className="text-cream-200 hover:text-brand-gold transition-colors">{t('nav.order')}</Link></li>
+              <li><Link to={path('/about')} className="text-cream-200 hover:text-brand-gold transition-colors">{t('nav.about')}</Link></li>
+              <li><Link to={path('/contact')} className="text-cream-200 hover:text-brand-gold transition-colors">{t('nav.contact')}</Link></li>
             </ul>
           </div>
         </div>

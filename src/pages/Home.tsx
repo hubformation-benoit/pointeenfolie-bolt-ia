@@ -176,7 +176,7 @@ function MasonryGallery() {
 }
 
 export default function Home() {
-  const { t } = useLang()
+  const { t, path } = useLang()
   return (
     <div>
       {/* Hero with carousel */}
@@ -189,8 +189,8 @@ export default function Home() {
             </h1>
             <p className="text-olive-700 text-lg">{t('home.tagline')}</p>
             <div className="flex flex-wrap gap-3 pt-2">
-              <Link to="/order" className="btn-primary">{t('home.orderNow')}</Link>
-              <Link to="/menu" className="btn-outline">{t('home.viewMenu')}</Link>
+              <Link to={path('/order')} className="btn-primary">{t('home.orderNow')}</Link>
+              <Link to={path('/menu')} className="btn-outline">{t('home.viewMenu')}</Link>
             </div>
           </div>
           <div className="lg:col-span-3">

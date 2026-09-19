@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { LanguageProvider } from './LanguageContext'
 import { CartProvider } from './CartContext'
 import Layout from './components/Layout'
@@ -13,13 +13,15 @@ export default function App() {
     <LanguageProvider>
       <CartProvider>
         <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/menu" element={<MenuPage />} />
-            <Route path="/order" element={<OrderPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+          <Route path="/" element={<Navigate to="/fr/" replace />} />
+          <Route path=":lang" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="menu" element={<MenuPage />} />
+            <Route path="order" element={<OrderPage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="contact" element={<ContactPage />} />
           </Route>
+          <Route path="*" element={<Navigate to="/fr/" replace />} />
         </Routes>
       </CartProvider>
     </LanguageProvider>
