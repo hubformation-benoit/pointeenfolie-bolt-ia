@@ -28,12 +28,12 @@ function Carousel() {
           key={pizza.id}
           className={`carousel-slide absolute inset-0 ${i === current ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
         >
-          <img src={pizza.image} alt={pizza.name} className="w-full h-full object-cover" />
+          <img src={pizza.image} alt={pizza.name[lang]} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10">
             <div className="max-w-xl">
               <h3 className="font-display text-2xl sm:text-4xl text-white mb-2 uppercase tracking-wide drop-shadow-lg">
-                {pizza.name}
+                {pizza.name[lang]}
               </h3>
               <p className="text-cream-100 text-sm sm:text-base line-clamp-2 drop-shadow-md">
                 {pizza.description[lang]}

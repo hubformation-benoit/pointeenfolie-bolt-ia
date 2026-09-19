@@ -1,4 +1,5 @@
 import type { MenuItem, Promotion, WeeklyEvent, OpenHours } from './types'
+import { itemNameBoth } from './types'
 
 // Placeholder pizza images from Pexels — replace with real product photos later
 export const pizzaImages: Record<string, string> = {
@@ -17,7 +18,7 @@ export const pizzaImages: Record<string, string> = {
 export const pizzas: MenuItem[] = [
   {
     id: 'trois-mousquetaires',
-    name: 'Trois Mousquetaires',
+    name: { fr: 'Trois Mousquetaires', en: '' },
     description: {
       fr: 'Saucisses chorizo, merguez, saucisses italiennes fortes, piments jalapeños, oignons, gruyère, cheddar fort et sauce tomate.',
       en: 'Chorizo sausage, merguez, hot Italian sausage, jalapeño peppers, onions, Gruyère, sharp cheddar and tomato sauce.'
@@ -28,7 +29,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'cardinal-richelieu',
-    name: 'Cardinal Richelieu',
+    name: { fr: 'Cardinal Richelieu', en: '' },
     description: {
       fr: 'Nappée d\'une sauce tomate sucrée avec un soupçon de miel, pancetta grillé, parmesan, mozzarella et origan.',
       en: 'Topped with a sweet tomato sauce with a hint of honey, grilled pancetta, Parmesan, mozzarella and oregano.'
@@ -39,7 +40,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'marie-antoinette',
-    name: 'Marie-Antoinette',
+    name: { fr: 'Marie-Antoinette', en: '' },
     description: {
       fr: 'Riche couche de prosciutto, aubergines grillées, boccoccini et une sauce tomates/pesto.',
       en: 'Rich layer of prosciutto, grilled eggplant, bocconcini and a tomato/pesto sauce.'
@@ -50,7 +51,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'revolution-francaise',
-    name: 'Révolution Française',
+    name: { fr: 'Révolution Française', en: '' },
     description: {
       fr: 'Poivrons verts, tomates séchées, oignons rouges, aubergines grillées, mozzarella, huile d\'olive et sauce blanche.',
       en: 'Green peppers, sun-dried tomatoes, red onions, grilled eggplant, mozzarella, olive oil and white sauce.'
@@ -61,7 +62,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'flotte-royale',
-    name: 'Flotte Royale',
+    name: { fr: 'Flotte Royale', en: '' },
     description: {
       fr: 'Saumon fumé, crevettes fraîches, câpres, oignons rouges, gruyère, coriandre et sauce rosée.',
       en: 'Smoked salmon, fresh shrimp, capers, red onions, Gruyère, cilantro and pink sauce.'
@@ -72,7 +73,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'vivante-campagne',
-    name: 'Vivante Campagne',
+    name: { fr: 'Vivante Campagne', en: '' },
     description: {
       fr: 'Oignons doux, viande fumée, pommes de terre et sauce chipotle.',
       en: 'Sweet onions, smoked meat, potatoes and chipotle sauce.'
@@ -83,7 +84,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'bastille-en-danger',
-    name: 'Bastille en Danger',
+    name: { fr: 'Bastille en Danger', en: '' },
     description: {
       fr: 'Tranches de poires, coulis de chocolat, crème anglaise avec un soupçon de kirsch.',
       en: 'Pear slices, chocolate coulis, custard with a hint of kirsch.'
@@ -94,7 +95,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'pouvoir-du-roi',
-    name: 'Pouvoir du Roi',
+    name: { fr: 'Pouvoir du Roi', en: '' },
     description: {
       fr: 'Merguez, bœuf haché, pepperoni, jambon, bacon, olives noires et sauce épicée aux tomates fraîches.',
       en: 'Merguez, ground beef, pepperoni, ham, bacon, black olives and spicy fresh tomato sauce.'
@@ -105,7 +106,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'la-guillotine',
-    name: 'La Guillotine',
+    name: { fr: 'La Guillotine', en: '' },
     description: {
       fr: 'Mozzarella, sauce piquante, chorizo, salami de Gênes et piments forts.',
       en: 'Mozzarella, spicy sauce, chorizo, Genoa salami and hot peppers.'
@@ -116,7 +117,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'absolutisme-transparent',
-    name: 'Absolutisme Transparent',
+    name: { fr: 'Absolutisme Transparent', en: '' },
     description: {
       fr: 'Mozzarella, parmesan, feta, cheddar vieilli, ricotta, épinards, ail rôti et sauce maison au vin blanc.',
       en: 'Mozzarella, Parmesan, feta, aged cheddar, ricotta, spinach, roasted garlic and homemade white wine sauce.'
@@ -135,17 +136,17 @@ export const saladImages: Record<string, string> = {
 }
 
 export const salads: MenuItem[] = [
-  { id: 'salade-cesar', name: 'Salade César', description: { fr: 'Laitue romaine, croûtons, parmesan, sauce César.', en: 'Romaine lettuce, croutons, Parmesan, Caesar dressing.' }, saladPrices: { entree: 8, repas: 12 }, image: saladImages['salade-cesar'], badges: [] },
-  { id: 'salade-nicoise', name: 'Salade Niçoise', description: { fr: 'Thon, haricots verts, tomates, œufs, olives, anchois.', en: 'Tuna, green beans, tomatoes, eggs, olives, anchovies.' }, saladPrices: { entree: 9, repas: 20 }, image: saladImages['salade-nicoise'], badges: [] },
-  { id: 'salade-quinoa', name: 'Salade de Quinoa', description: { fr: 'Quinoa, légumes grillés, feta, vinaigrette au citron.', en: 'Quinoa, grilled vegetables, feta, lemon vinaigrette.' }, saladPrices: { entree: 10, repas: 14 }, image: saladImages['salade-quinoa'], badges: ['veg'] },
+  { id: 'salade-cesar', name: { fr: 'Salade César', en: 'Caesar Salad' }, description: { fr: 'Laitue romaine, croûtons, parmesan, sauce César.', en: 'Romaine lettuce, croutons, Parmesan, Caesar dressing.' }, saladPrices: { entree: 8, repas: 12 }, image: saladImages['salade-cesar'], badges: [] },
+  { id: 'salade-nicoise', name: { fr: 'Salade Niçoise', en: 'Niçoise Salad' }, description: { fr: 'Thon, haricots verts, tomates, œufs, olives, anchois.', en: 'Tuna, green beans, tomatoes, eggs, olives, anchovies.' }, saladPrices: { entree: 9, repas: 20 }, image: saladImages['salade-nicoise'], badges: [] },
+  { id: 'salade-quinoa', name: { fr: 'Salade de Quinoa', en: 'Quinoa Salad' }, description: { fr: 'Quinoa, légumes grillés, feta, vinaigrette au citron.', en: 'Quinoa, grilled vegetables, feta, lemon vinaigrette.' }, saladPrices: { entree: 10, repas: 14 }, image: saladImages['salade-quinoa'], badges: ['veg'] },
 ]
 
 export const drinks: MenuItem[] = [
-  { id: 'coca-cola', name: 'Coca-Cola', description: { fr: '33 cl', en: '12 oz' }, price: 2, badges: [] },
-  { id: 'sprite', name: 'Sprite', description: { fr: '33 cl', en: '12 oz' }, price: 2, badges: [] },
-  { id: 'fanta', name: 'Fanta', description: { fr: '33 cl', en: '12 oz' }, price: 2, badges: [] },
-  { id: 'eau-minerale', name: 'Eau minérale', description: { fr: 'Pétillante ou plate', en: 'Sparkling or still' }, price: 1, badges: [] },
-  { id: 'jus-orange', name: 'Jus d\'orange', description: { fr: 'Fraîchement pressé', en: 'Freshly squeezed' }, price: 3, badges: [] },
+  { id: 'coca-cola', name: { fr: 'Coca-Cola', en: '' }, description: { fr: '33 cl', en: '12 oz' }, price: 2, badges: [] },
+  { id: 'sprite', name: { fr: 'Sprite', en: '' }, description: { fr: '33 cl', en: '12 oz' }, price: 2, badges: [] },
+  { id: 'fanta', name: { fr: 'Fanta', en: '' }, description: { fr: '33 cl', en: '12 oz' }, price: 2, badges: [] },
+  { id: 'eau-minerale', name: { fr: 'Eau minérale', en: 'Mineral Water' }, description: { fr: 'Pétillante ou plate', en: 'Sparkling or still' }, price: 1, badges: [] },
+  { id: 'jus-orange', name: { fr: 'Jus d\'orange', en: 'Orange Juice' }, description: { fr: 'Fraîchement pressé', en: 'Freshly squeezed' }, price: 3, badges: [] },
 ]
 
 // Placeholder dessert images from Pexels — replace with real product photos later
@@ -156,9 +157,9 @@ export const dessertImages: Record<string, string> = {
 }
 
 export const desserts: MenuItem[] = [
-  { id: 'tiramisu', name: 'Tiramisu', description: { fr: 'Mascarpone, café, cacao, biscuits savoiardi.', en: 'Mascarpone, coffee, cocoa, ladyfingers.' }, price: 9, image: dessertImages['tiramisu'], badges: [] },
-  { id: 'gateau-fromage', name: 'Gâteau au fromage', description: { fr: 'Cheesecake maison, coulis de fruits rouges.', en: 'Homemade cheesecake, berry coulis.' }, price: 9, image: dessertImages['gateau-fromage'], badges: [] },
-  { id: 'creme-brulee', name: 'Crème brûlée', description: { fr: 'Vanille de Madagascar, caramel craquant.', en: 'Madagascar vanilla, crackling caramel.' }, price: 6, image: dessertImages['creme-brulee'], badges: [] },
+  { id: 'tiramisu', name: { fr: 'Tiramisu', en: '' }, description: { fr: 'Mascarpone, café, cacao, biscuits savoiardi.', en: 'Mascarpone, coffee, cocoa, ladyfingers.' }, price: 9, image: dessertImages['tiramisu'], badges: [] },
+  { id: 'gateau-fromage', name: { fr: 'Gâteau au fromage', en: 'Cheesecake' }, description: { fr: 'Cheesecake maison, coulis de fruits rouges.', en: 'Homemade cheesecake, berry coulis.' }, price: 9, image: dessertImages['gateau-fromage'], badges: [] },
+  { id: 'creme-brulee', name: { fr: 'Crème brûlée', en: '' }, description: { fr: 'Vanille de Madagascar, caramel craquant.', en: 'Madagascar vanilla, crackling caramel.' }, price: 6, image: dessertImages['creme-brulee'], badges: [] },
 ]
 
 export const promotions: Promotion[] = [
@@ -230,7 +231,7 @@ export const galleryImages = [
 // Carousel images — pizza photos with names overlaid
 export const carouselPizzas = pizzas.slice(0, 6).map(p => ({
   id: p.id,
-  name: p.name,
+  name: itemNameBoth(p),
   image: p.image!,
   description: p.description,
 }))

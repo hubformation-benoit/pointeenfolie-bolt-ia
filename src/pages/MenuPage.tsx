@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLang } from '../LanguageContext'
 import { pizzas, salads, drinks, desserts } from '../data'
 import type { MenuItem, PizzaSize } from '../types'
+import { itemName, itemNameBoth } from '../types'
 import { useCart } from '../CartContext'
 
 function Badge({ type, label }: { type: string; label: string }) {
@@ -20,7 +21,7 @@ function PizzaCard({ item }: { item: MenuItem }) {
   const handleAdd = () => {
     addItem({
       id: `${item.id}-${selectedSize}`,
-      name: { fr: item.name, en: item.name },
+      name: itemNameBoth(item),
       size: selectedSize,
       price: item.prices![selectedSize],
       qty: 1,
@@ -30,7 +31,7 @@ function PizzaCard({ item }: { item: MenuItem }) {
   return (
     <div className="card overflow-hidden group flex flex-col">
       <div className="relative h-48 overflow-hidden">
-        <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        <img src={item.image} alt={itemName(item, lang)} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
         <div className="absolute top-3 right-3 flex flex-col gap-1">
           {item.badges.map(b => (
             <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : t('menu.spicy')} />
@@ -38,7 +39,7 @@ function PizzaCard({ item }: { item: MenuItem }) {
         </div>
       </div>
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-display text-lg text-brand-green uppercase tracking-wide mb-2">{item.name}</h3>
+        <h3 className="font-display text-lg text-brand-green uppercase tracking-wide mb-2">{itemName(item, lang)}</h3>
         <p className="text-olive-600 text-sm mb-3 flex-1">{item.description[lang]}</p>
         <div className="space-y-2">
           <div className="flex gap-2">
@@ -73,7 +74,7 @@ function SaladCard({ item }: { item: MenuItem }) {
   const handleAdd = () => {
     addItem({
       id: `${item.id}-${selectedPortion}`,
-      name: { fr: item.name, en: item.name },
+      name: itemNameBoth(item),
       size: selectedPortion === 'entree' ? t('menu.entree') : t('menu.repas'),
       price: item.saladPrices![selectedPortion],
       qty: 1,
@@ -83,7 +84,7 @@ function SaladCard({ item }: { item: MenuItem }) {
   return (
     <div className="card overflow-hidden group flex flex-col">
       <div className="relative h-48 overflow-hidden">
-        <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        <img src={item.image} alt={itemName(item, lang)} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
         <div className="absolute top-3 right-3 flex flex-col gap-1">
           {item.badges.map(b => (
             <Badge key={b} type={b} label={t('menu.veg')} />
@@ -91,7 +92,7 @@ function SaladCard({ item }: { item: MenuItem }) {
         </div>
       </div>
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-display text-lg text-brand-green uppercase tracking-wide mb-2">{item.name}</h3>
+        <h3 className="font-display text-lg text-brand-green uppercase tracking-wide mb-2">{itemName(item, lang)}</h3>
         <p className="text-olive-600 text-sm mb-3 flex-1">{item.description[lang]}</p>
         <div className="space-y-2">
           <div className="flex gap-2">
@@ -132,7 +133,7 @@ function DessertCard({ item }: { item: MenuItem }) {
   const handleAdd = () => {
     addItem({
       id: item.id,
-      name: { fr: item.name, en: item.name },
+      name: itemNameBoth(item),
       price: item.price!,
       qty: 1,
     })
@@ -141,7 +142,7 @@ function DessertCard({ item }: { item: MenuItem }) {
   return (
     <div className="card overflow-hidden group flex flex-col">
       <div className="relative h-48 overflow-hidden">
-        <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+        <img src={item.image} alt={itemName(item, lang)} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
         <div className="absolute top-3 right-3 flex flex-col gap-1">
           {item.badges.map(b => (
             <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : t('menu.spicy')} />
@@ -149,7 +150,7 @@ function DessertCard({ item }: { item: MenuItem }) {
         </div>
       </div>
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-display text-lg text-brand-green uppercase tracking-wide mb-2">{item.name}</h3>
+        <h3 className="font-display text-lg text-brand-green uppercase tracking-wide mb-2">{itemName(item, lang)}</h3>
         <p className="text-olive-600 text-sm mb-3 flex-1">{item.description[lang]}</p>
         <button onClick={handleAdd} className="btn-primary w-full text-sm py-2">
           {t('menu.addToCart')} · {item.price}$
@@ -166,7 +167,7 @@ function SimpleItem({ item }: { item: MenuItem }) {
   const handleAdd = () => {
     addItem({
       id: item.id,
-      name: { fr: item.name, en: item.name },
+      name: itemNameBoth(item),
       price: item.price!,
       qty: 1,
     })
@@ -176,7 +177,7 @@ function SimpleItem({ item }: { item: MenuItem }) {
     <div className="card p-5 flex items-center justify-between gap-4">
       <div className="flex-1">
         <div className="flex items-center gap-2 mb-1">
-          <h3 className="font-display text-base text-brand-green uppercase tracking-wide">{item.name}</h3>
+          <h3 className="font-display text-base text-brand-green uppercase tracking-wide">{itemName(item, lang)}</h3>
           {item.badges.map(b => (
             <Badge key={b} type={b} label={b === 'veg' ? t('menu.veg') : t('menu.spicy')} />
           ))}
