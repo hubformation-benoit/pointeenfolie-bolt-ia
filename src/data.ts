@@ -214,6 +214,11 @@ export const siteInfo = {
   email: 'info@pointeenfolie.com',
 }
 
+export const siteAlert = {
+  fr: "Attention! Ce site est généré par l'IA et la pizzéria n'existe pas vraiment. Si vous voulez apprendre comment faire un site comme ceci, contactez-nous à info@hubformation.ca",
+  en: "Warning! This website is AI-generated and the pizzeria is not real. If you want to learn how to build a site like this, contact us at info@hubformation.ca",
+}
+
 // Masonry gallery images — placeholder photos from Pexels
 export const galleryImages = [
   { url: 'https://images.pexels.com/photos/24357593/pexels-photo-24357593.jpeg?auto=compress&cs=tinysrgb&h=650&w=940', alt: { fr: 'Le chef en cuisine', en: 'Chef in the kitchen' } },
