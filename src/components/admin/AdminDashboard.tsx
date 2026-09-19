@@ -157,13 +157,17 @@ function MenuItemsEditor({ category }: { category: string }) {
   const [editing, setEditing] = useState<MenuItemForm | null>(null)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [initialized, setInitialized] = useState(false)
 
   const load = useCallback(async () => {
-    setLoading(true)
+    if (initialized) setLoading(false)
     const { data } = await supabase.from('menu_items').select('*').eq('category', category).order('priority', { ascending: true })
     setItems((data as DbMenuItem[]) || [])
-    setLoading(false)
-  }, [category])
+    if (!initialized) {
+      setLoading(false)
+      setInitialized(true)
+    }
+  }, [category, initialized])
 
   useEffect(() => { load() }, [load])
 
@@ -202,11 +206,14 @@ function MenuItemsEditor({ category }: { category: string }) {
     const idx = sorted.findIndex(i => i.id === item.id)
     const swapIdx = idx + dir
     if (swapIdx < 0 || swapIdx >= sorted.length) return
-    const other = sorted[swapIdx]
-    await Promise.all([
-      supabase.from('menu_items').update({ priority: other.priority }).eq('id', item.id),
-      supabase.from('menu_items').update({ priority: item.priority }).eq('id', other.id),
-    ])
+    const reordered = [...sorted]
+    const [moved] = reordered.splice(idx, 1)
+    reordered.splice(swapIdx, 0, moved)
+    await Promise.all(
+      reordered.map((it, i) =>
+        supabase.from('menu_items').update({ priority: i }).eq('id', it.id)
+      )
+    )
     await load()
   }
 
