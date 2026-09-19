@@ -6,7 +6,7 @@ export default function AlertBanner() {
   const { lang } = useLang()
   const [visible, setVisible] = useState(true)
 
-  if (!visible) return null
+  if (!visible || !siteAlert[lang]) return null
 
   return (
     <div
