@@ -52,7 +52,7 @@ export default function ContactPage() {
                 {openHours.map((h, i) => (
                   <div key={i} className="flex justify-between text-sm border-b border-olive-100 pb-2 last:border-0">
                     <span className="text-olive-700 font-medium">{h.days[lang]}</span>
-                    <span className="text-olive-600">{h.hours}</span>
+                    <span className="text-olive-600">{h.hours[lang]}</span>
                   </div>
                 ))}
               </div>

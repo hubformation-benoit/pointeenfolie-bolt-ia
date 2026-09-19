@@ -62,7 +62,7 @@ export default function Header() {
                 {openHours.map((h, i) => (
                   <span key={i}>
                     {i > 0 && ' · '}
-                    {h.days[lang]} {h.hours}
+                    {h.days[lang]} {h.hours[lang]}
                   </span>
                 ))}
               </div>
@@ -146,7 +146,7 @@ export default function Header() {
               </a>
               <div className="text-xs text-olive-600 mt-1">
                 {openHours.map((h, i) => (
-                  <div key={i}>{h.days[lang]} {h.hours}</div>
+                  <div key={i}>{h.days[lang]} {h.hours[lang]}</div>
                 ))}
               </div>
             </div>

@@ -136,7 +136,7 @@ function HoursAddressBlock() {
         {openHours.map((h, i) => (
           <div key={i} className="flex justify-between text-sm">
             <span className="text-olive-700 font-medium">{h.days[lang]}</span>
-            <span className="text-olive-600">{h.hours}</span>
+            <span className="text-olive-600">{h.hours[lang]}</span>
           </div>
         ))}
       </div>

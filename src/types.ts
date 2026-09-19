@@ -41,7 +41,7 @@ export interface WeeklyEvent {
 
 export interface OpenHours {
   days: { fr: string; en: string }
-  hours: string
+  hours: { fr: string; en: string }
 }
 
 export interface CartItem {

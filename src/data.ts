@@ -18,7 +18,7 @@ export const pizzaImages: Record<string, string> = {
 export const pizzas: MenuItem[] = [
   {
     id: 'trois-mousquetaires',
-    name: { fr: 'Trois Mousquetaires', en: 'Three Musketeers' },
+    name: { fr: 'Trois Mousquetaires', en: '' },
     description: {
       fr: 'Saucisses chorizo, merguez, saucisses italiennes fortes, piments jalapeños, oignons, gruyère, cheddar fort et sauce tomate.',
       en: 'Chorizo sausage, merguez, hot Italian sausage, jalapeño peppers, onions, Gruyère, sharp cheddar and tomato sauce.'
@@ -51,7 +51,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'revolution-francaise',
-    name: { fr: 'Révolution Française', en: 'French Revolution' },
+    name: { fr: 'Révolution Française', en: '' },
     description: {
       fr: 'Poivrons verts, tomates séchées, oignons rouges, aubergines grillées, mozzarella, huile d\'olive et sauce blanche.',
       en: 'Green peppers, sun-dried tomatoes, red onions, grilled eggplant, mozzarella, olive oil and white sauce.'
@@ -62,7 +62,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'flotte-royale',
-    name: { fr: 'Flotte Royale', en: 'Royal Fleet' },
+    name: { fr: 'Flotte Royale', en: '' },
     description: {
       fr: 'Saumon fumé, crevettes fraîches, câpres, oignons rouges, gruyère, coriandre et sauce rosée.',
       en: 'Smoked salmon, fresh shrimp, capers, red onions, Gruyère, cilantro and pink sauce.'
@@ -73,7 +73,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'vivante-campagne',
-    name: { fr: 'Vivante Campagne', en: 'Vibrant Countryside' },
+    name: { fr: 'Vivante Campagne', en: '' },
     description: {
       fr: 'Oignons doux, viande fumée, pommes de terre et sauce chipotle.',
       en: 'Sweet onions, smoked meat, potatoes and chipotle sauce.'
@@ -84,7 +84,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'bastille-en-danger',
-    name: { fr: 'Bastille en Danger', en: 'Bastille in Danger' },
+    name: { fr: 'Bastille en Danger', en: '' },
     description: {
       fr: 'Tranches de poires, coulis de chocolat, crème anglaise avec un soupçon de kirsch.',
       en: 'Pear slices, chocolate coulis, custard with a hint of kirsch.'
@@ -95,7 +95,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'pouvoir-du-roi',
-    name: { fr: 'Pouvoir du Roi', en: 'Power of the King' },
+    name: { fr: 'Pouvoir du Roi', en: '' },
     description: {
       fr: 'Merguez, bœuf haché, pepperoni, jambon, bacon, olives noires et sauce épicée aux tomates fraîches.',
       en: 'Merguez, ground beef, pepperoni, ham, bacon, black olives and spicy fresh tomato sauce.'
@@ -106,7 +106,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'la-guillotine',
-    name: { fr: 'La Guillotine', en: 'The Guillotine' },
+    name: { fr: 'La Guillotine', en: '' },
     description: {
       fr: 'Mozzarella, sauce piquante, chorizo, salami de Gênes et piments forts.',
       en: 'Mozzarella, spicy sauce, chorizo, Genoa salami and hot peppers.'
@@ -117,7 +117,7 @@ export const pizzas: MenuItem[] = [
   },
   {
     id: 'absolutisme-transparent',
-    name: { fr: 'Absolutisme Transparent', en: 'Transparent Absolutism' },
+    name: { fr: 'Absolutisme Transparent', en: '' },
     description: {
       fr: 'Mozzarella, parmesan, feta, cheddar vieilli, ricotta, épinards, ail rôti et sauce maison au vin blanc.',
       en: 'Mozzarella, Parmesan, feta, aged cheddar, ricotta, spinach, roasted garlic and homemade white wine sauce.'
@@ -201,8 +201,8 @@ export const weeklyEvent: WeeklyEvent = {
 }
 
 export const openHours: OpenHours[] = [
-  { days: { fr: 'Dimanche – Mercredi', en: 'Sunday – Wednesday' }, hours: '11:00 – 21:00' },
-  { days: { fr: 'Jeudi – Samedi', en: 'Thursday – Saturday' }, hours: '11:00 – 22:00' },
+  { days: { fr: 'Dimanche – Mercredi', en: 'Sunday – Wednesday' }, hours: { fr: '11h – 21h', en: '11am – 9pm' } },
+  { days: { fr: 'Jeudi – Samedi', en: 'Thursday – Saturday' }, hours: { fr: '11h – 22h', en: '11am – 10pm' } },
 ]
 
 export const siteInfo = {
