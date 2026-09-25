@@ -1,4 +1,10 @@
 import { useState, useMemo } from 'react'
+
+function todayISO(): string {
+  const d = new Date()
+  const tz = d.getTimezoneOffset() * 60000
+  return new Date(d.getTime() - tz).toISOString().slice(0, 10)
+}
 import { Link } from 'react-router-dom'
 import { useLang } from '../LanguageContext'
 import { useCart } from '../CartContext'
@@ -30,7 +36,7 @@ export default function OrderPage() {
   const { orderAlert } = useData()
 
   const [mode, setMode] = useState<'delivery' | 'pickup'>('delivery')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(todayISO())
   const [time, setTime] = useState('')
   const [promoInput, setPromoInput] = useState('')
   const [promoApplied, setPromoApplied] = useState<number | null>(null)
@@ -93,10 +99,11 @@ export default function OrderPage() {
         {/* Order alert banner (yellow, like site alert) */}
         {orderAlert[lang] && (
           <div
-            className="relative w-full text-center text-sm py-3 px-10 font-medium text-olive-800 rounded-xl mb-6"
+            className="relative w-full flex items-center gap-3 text-sm py-3 px-4 font-medium text-olive-800 rounded-xl mb-6"
             style={{ backgroundColor: '#fcffcf' }}
           >
-            {orderAlert[lang]}
+            <svg className="w-6 h-6 flex-shrink-0 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z" /></svg>
+            <span>{orderAlert[lang]}</span>
           </div>
         )}
 
@@ -225,7 +232,7 @@ export default function OrderPage() {
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-olive-700 mb-1">{t('order.date')}</label>
-                <input type="date" value={date} onChange={e => setDate(e.target.value)} required
+                <input type="date" value={date} min={todayISO()} onChange={e => setDate(e.target.value)} required
                   className="w-full rounded-lg border border-olive-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-green" />
               </div>
               <div>
