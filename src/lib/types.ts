@@ -45,6 +45,8 @@ export interface DbSiteSettings {
   email: string
   alert_fr: string
   alert_en: string
+  order_alert_fr: string
+  order_alert_en: string
 }
 
 export interface DbGalleryImage {

@@ -12,6 +12,7 @@ import {
   openHours as fallbackHours,
   siteInfo as fallbackSiteInfo,
   siteAlert as fallbackAlert,
+  orderAlert as fallbackOrderAlert,
   galleryImages as fallbackGallery,
   promotions as fallbackPromotions,
   promoCodes as fallbackPromoCodes,
@@ -26,6 +27,7 @@ export interface SiteData {
   openHours: OpenHours[]
   siteInfo: { address: { fr: string; en: string }; phone: string; email: string }
   siteAlert: { fr: string; en: string }
+  orderAlert: { fr: string; en: string }
   galleryImages: { url: string; alt: { fr: string; en: string } }[]
   promotions: Promotion[]
   promoCodes: Record<string, number>
@@ -66,6 +68,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [openHours, setOpenHours] = useState<OpenHours[]>(fallbackHours)
   const [siteInfo, setSiteInfo] = useState(fallbackSiteInfo)
   const [siteAlert, setSiteAlert] = useState(fallbackAlert)
+  const [orderAlert, setOrderAlert] = useState(fallbackOrderAlert)
   const [galleryImages, setGalleryImages] = useState(fallbackGallery)
   const [loading, setLoading] = useState(true)
 
@@ -117,6 +120,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
           email: s.email,
         })
         setSiteAlert({ fr: s.alert_fr, en: s.alert_en })
+        setOrderAlert({ fr: s.order_alert_fr || fallbackOrderAlert.fr, en: s.order_alert_en || fallbackOrderAlert.en })
       }
 
       if (galleryRes.data && galleryRes.data.length > 0) {
@@ -141,7 +145,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   return (
     <DataContext.Provider value={{
       pizzas, salads, drinks, desserts,
-      weeklyEvent, openHours, siteInfo, siteAlert, galleryImages,
+      weeklyEvent, openHours, siteInfo, siteAlert, orderAlert, galleryImages,
       promotions: fallbackPromotions,
       promoCodes: fallbackPromoCodes,
       carouselPizzas,

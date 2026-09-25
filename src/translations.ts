@@ -95,6 +95,17 @@ const dict: Dict = {
   'order.promoApplied': { fr: 'Code promo appliqué !', en: 'Promo code applied!' },
   'order.removeItem': { fr: 'Retirer', en: 'Remove' },
   'order.qty': { fr: 'Qté', en: 'Qty' },
+  'order.confirmSummary': { fr: 'Résumé de votre commande', en: 'Your order summary' },
+  'order.orderDateTime': { fr: 'Date et heure', en: 'Date and time' },
+  'order.itemsOrdered': { fr: 'Articles commandés', en: 'Items ordered' },
+  'order.taxDetails': { fr: 'Détails des taxes', en: 'Tax details' },
+  'order.tps': { fr: 'TPS (5%)', en: 'GST (5%)' },
+  'order.tvq': { fr: 'TVQ (9.975%)', en: 'QST (9.975%)' },
+  'order.promoApplied2': { fr: 'Code promo appliqué', en: 'Promo code applied' },
+  'order.contactInfo': { fr: 'Vos informations', en: 'Your information' },
+  'order.orderNotes': { fr: 'Notes / instructions', en: 'Notes / instructions' },
+  'order.backHome': { fr: 'Retour à l\'accueil', en: 'Back to home' },
+  'order.printOrder': { fr: 'Imprimer la commande', en: 'Print order' },
 
   // About page
   'about.title': { fr: 'À propos de Pointe en folie', en: 'About Pointe en folie' },

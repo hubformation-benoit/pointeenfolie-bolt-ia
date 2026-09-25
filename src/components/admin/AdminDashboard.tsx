@@ -5,7 +5,7 @@ import { supabase } from '../../lib/supabase'
 import type { DbMenuItem, DbWeeklyEvent, DbOpenHours, DbSiteSettings, DbGalleryImage } from '../../lib/types'
 import ImageInput from './ImageInput'
 
-type Section = 'pizzas' | 'salads' | 'drinks' | 'desserts' | 'event' | 'hours' | 'settings' | 'alert' | 'gallery'
+type Section = 'pizzas' | 'salads' | 'drinks' | 'desserts' | 'event' | 'hours' | 'settings' | 'alert' | 'orderAlert' | 'gallery'
 
 interface MenuItemForm {
   id?: string
@@ -53,6 +53,7 @@ export default function AdminDashboard() {
     { id: 'hours', label: 'Horaires' },
     { id: 'settings', label: 'Infos du site' },
     { id: 'alert', label: 'Alerte du site' },
+    { id: 'orderAlert', label: 'Alerte commande' },
     { id: 'gallery', label: 'Galerie' },
   ]
 
@@ -100,6 +101,7 @@ export default function AdminDashboard() {
         {section === 'hours' && <HoursEditor />}
         {section === 'settings' && <SettingsEditor />}
         {section === 'alert' && <AlertEditor />}
+        {section === 'orderAlert' && <OrderAlertEditor />}
         {section === 'gallery' && <GalleryEditor />}
       </div>
     </div>
@@ -628,6 +630,55 @@ function AlertEditor() {
       <div>
         <label className="block text-sm font-semibold text-olive-700 mb-1">Texte (anglais)</label>
         <textarea rows={3} value={form.alert_en} onChange={e => setForm({ ...form, alert_en: e.target.value })}
+          className="w-full rounded-lg border border-olive-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green" />
+      </div>
+      <div className="flex items-center gap-3">
+        <button onClick={handleSave} disabled={saving} className="btn-primary text-sm py-2 disabled:opacity-50">
+          {saving ? 'Sauvegarde...' : 'Sauvegarder'}
+        </button>
+        {saved && <span className="text-brand-green text-sm font-semibold">Sauvegardé!</span>}
+      </div>
+    </div>
+  )
+}
+
+function OrderAlertEditor() {
+  const [form, setForm] = useState<DbSiteSettings | null>(null)
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    supabase.from('site_settings').select('*').eq('id', 1).maybeSingle().then(({ data }) => {
+      if (data) setForm(data as DbSiteSettings)
+    })
+  }, [])
+
+  const handleSave = async () => {
+    if (!form) return
+    setSaving(true)
+    await supabase.from('site_settings').update({
+      order_alert_fr: form.order_alert_fr,
+      order_alert_en: form.order_alert_en,
+    }).eq('id', 1)
+    setSaving(false)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  if (!form) return <p className="text-olive-600">Chargement...</p>
+
+  return (
+    <div className="card p-6 space-y-4 max-w-2xl">
+      <h2 className="font-display text-xl text-brand-green uppercase tracking-wide">Alerte de commande</h2>
+      <p className="text-sm text-olive-500">Ce message s'affiche en haut de la page de confirmation de commande, sur fond jaune. Utile pour informer les clients d'un délai, d'un achalandage élevé, etc.</p>
+      <div>
+        <label className="block text-sm font-semibold text-olive-700 mb-1">Texte (français)</label>
+        <textarea rows={3} value={form.order_alert_fr ?? ''} onChange={e => setForm({ ...form, order_alert_fr: e.target.value })}
+          className="w-full rounded-lg border border-olive-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green" />
+      </div>
+      <div>
+        <label className="block text-sm font-semibold text-olive-700 mb-1">Texte (anglais)</label>
+        <textarea rows={3} value={form.order_alert_en ?? ''} onChange={e => setForm({ ...form, order_alert_en: e.target.value })}
           className="w-full rounded-lg border border-olive-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green" />
       </div>
       <div className="flex items-center gap-3">
