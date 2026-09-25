@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../lib/AuthContext'
 import { supabase } from '../../lib/supabase'
 import type { DbMenuItem, DbWeeklyEvent, DbOpenHours, DbSiteSettings, DbGalleryImage } from '../../lib/types'
 import ImageInput from './ImageInput'
 import OrdersSection from './OrdersSection'
 
-type Section = 'pizzas' | 'salads' | 'drinks' | 'desserts' | 'event' | 'hours' | 'settings' | 'alert' | 'orderAlert' | 'gallery' | 'orders'
+type Section = 'pizzas' | 'salads' | 'drinks' | 'desserts' | 'event' | 'hours' | 'settings' | 'alert' | 'orderAlert' | 'gallery'
 
 interface MenuItemForm {
   id?: string
@@ -34,7 +34,10 @@ const BADGE_OPTIONS = [
 export default function AdminDashboard() {
   const { session, loading: authLoading, signOut } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [section, setSection] = useState<Section>('pizzas')
+
+  const isOrdersTab = location.pathname === '/admin/orders'
 
   useEffect(() => {
     if (!authLoading && !session) navigate('/admin/login')
@@ -55,7 +58,6 @@ export default function AdminDashboard() {
     { id: 'settings', label: 'Infos du site' },
     { id: 'alert', label: 'Alerte du site' },
     { id: 'orderAlert', label: 'Alerte commande' },
-    { id: 'orders', label: 'Commandes' },
     { id: 'gallery', label: 'Galerie' },
   ]
 
@@ -69,43 +71,71 @@ export default function AdminDashboard() {
               <h1 className="font-display text-lg uppercase tracking-wide text-cream-100">Administration</h1>
             </div>
             <div className="flex items-center gap-3">
-              <a href="/" className="text-cream-200 hover:text-brand-gold text-sm transition-colors">Voir le site</a>
-              <button onClick={() => signOut()} className="text-cream-200 hover:text-brick-300 text-sm transition-colors">
+              <a href="/" className="flex items-center gap-1.5 text-cream-200 hover:text-brand-gold text-sm transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                Voir le site
+              </a>
+              <button onClick={() => signOut()} className="flex items-center gap-1.5 text-cream-200 hover:text-brick-300 text-sm transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                 Déconnexion
               </button>
             </div>
+          </div>
+          {/* Main tabs: Contenu / Commandes */}
+          <div className="flex gap-2 pb-3">
+            <button
+              onClick={() => navigate('/admin/content')}
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                !isOrdersTab ? 'bg-brand-green text-white shadow-md' : 'bg-olive-800 text-cream-200 hover:bg-olive-700'
+              }`}
+            >
+              Contenu
+            </button>
+            <button
+              onClick={() => navigate('/admin/orders')}
+              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                isOrdersTab ? 'bg-brand-green text-white shadow-md' : 'bg-olive-800 text-cream-200 hover:bg-olive-700'
+              }`}
+            >
+              Commandes
+            </button>
           </div>
         </div>
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="flex flex-wrap gap-2 mb-6">
-          {sections.map(s => (
-            <button
-              key={s.id}
-              onClick={() => setSection(s.id)}
-              className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
-                section === s.id
-                  ? 'bg-brand-green text-white shadow-md'
-                  : 'bg-olive-100 text-olive-700 hover:bg-olive-200'
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
+        {isOrdersTab ? (
+          <OrdersSection />
+        ) : (
+          <>
+            <div className="flex flex-wrap gap-2 mb-6">
+              {sections.map(s => (
+                <button
+                  key={s.id}
+                  onClick={() => setSection(s.id)}
+                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+                    section === s.id
+                      ? 'bg-brand-green text-white shadow-md'
+                      : 'bg-olive-100 text-olive-700 hover:bg-olive-200'
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
 
-        {section === 'pizzas' && <MenuItemsEditor category="pizza" />}
-        {section === 'salads' && <MenuItemsEditor category="salad" />}
-        {section === 'drinks' && <MenuItemsEditor category="drink" />}
-        {section === 'desserts' && <MenuItemsEditor category="dessert" />}
-        {section === 'event' && <EventEditor />}
-        {section === 'hours' && <HoursEditor />}
-        {section === 'settings' && <SettingsEditor />}
-        {section === 'alert' && <AlertEditor />}
-        {section === 'orderAlert' && <OrderAlertEditor />}
-        {section === 'orders' && <OrdersSection />}
-        {section === 'gallery' && <GalleryEditor />}
+            {section === 'pizzas' && <MenuItemsEditor category="pizza" />}
+            {section === 'salads' && <MenuItemsEditor category="salad" />}
+            {section === 'drinks' && <MenuItemsEditor category="drink" />}
+            {section === 'desserts' && <MenuItemsEditor category="dessert" />}
+            {section === 'event' && <EventEditor />}
+            {section === 'hours' && <HoursEditor />}
+            {section === 'settings' && <SettingsEditor />}
+            {section === 'alert' && <AlertEditor />}
+            {section === 'orderAlert' && <OrderAlertEditor />}
+            {section === 'gallery' && <GalleryEditor />}
+          </>
+        )}
       </div>
     </div>
   )
