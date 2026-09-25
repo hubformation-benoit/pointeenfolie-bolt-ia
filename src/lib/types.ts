@@ -57,3 +57,46 @@ export interface DbGalleryImage {
   priority: number
   created_at: string
 }
+
+export type OrderStatus = 'pending' | 'preparing' | 'done' | 'delivered' | 'cancelled'
+
+export interface DbOrder {
+  id: string
+  order_number: number
+  lang: 'fr' | 'en'
+  mode: 'delivery' | 'pickup'
+  delivery_date: string
+  delivery_time: string
+  customer_name: string
+  customer_phone: string
+  customer_email: string | null
+  customer_address: string | null
+  notes: string | null
+  subtotal: number
+  discount: number
+  promo_code: string | null
+  tps: number
+  tvq: number
+  total: number
+  current_status: OrderStatus
+  created_at: string
+  closed_at: string | null
+}
+
+export interface DbOrderItem {
+  id: string
+  order_id: string
+  item_id: string
+  name_fr: string
+  name_en: string
+  size: string | null
+  price: number
+  qty: number
+}
+
+export interface DbOrderStatusChange {
+  id: string
+  order_id: string
+  status: OrderStatus
+  created_at: string
+}

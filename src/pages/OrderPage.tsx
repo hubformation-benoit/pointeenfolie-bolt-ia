@@ -1,21 +1,23 @@
 import { useState, useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { useLang } from '../LanguageContext'
+import { useCart } from '../CartContext'
+import { useData } from '../lib/DataContext'
+import { supabase } from '../lib/supabase'
+import { promoCodes } from '../data'
+import type { CartItem } from '../types'
 
 function todayISO(): string {
   const d = new Date()
   const tz = d.getTimezoneOffset() * 60000
   return new Date(d.getTime() - tz).toISOString().slice(0, 10)
 }
-import { Link } from 'react-router-dom'
-import { useLang } from '../LanguageContext'
-import { useCart } from '../CartContext'
-import { useData } from '../lib/DataContext'
-import { promoCodes } from '../data'
-import type { CartItem } from '../types'
 
 const TPS_RATE = 0.05
 const TVQ_RATE = 0.09975
 
 interface OrderSnapshot {
+  orderNumber: number | null
   mode: 'delivery' | 'pickup'
   date: string
   time: string
@@ -44,6 +46,9 @@ export default function OrderPage() {
   const [confirmed, setConfirmed] = useState(false)
   const [snapshot, setSnapshot] = useState<OrderSnapshot | null>(null)
 
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+
   const [customer, setCustomer] = useState({ name: '', phone: '', email: '', address: '', notes: '' })
 
   const subtotal = useMemo(() => items.reduce((sum, i) => sum + i.price * i.qty, 0), [items])
@@ -64,9 +69,13 @@ export default function OrderPage() {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setSubmitting(true)
+    setSubmitError('')
+
     const snap: OrderSnapshot = {
+      orderNumber: null,
       mode,
       date,
       time,
@@ -80,9 +89,68 @@ export default function OrderPage() {
       total,
       customer: { ...customer },
     }
-    setSnapshot(snap)
-    setConfirmed(true)
-    clear()
+
+    try {
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          lang,
+          mode,
+          delivery_date: date,
+          delivery_time: time,
+          customer_name: customer.name,
+          customer_phone: customer.phone,
+          customer_email: customer.email || null,
+          customer_address: mode === 'delivery' ? customer.address || null : null,
+          notes: customer.notes || null,
+          subtotal,
+          discount,
+          promo_code: snap.promoCode || null,
+          tps,
+          tvq,
+          total,
+          current_status: 'pending',
+        })
+        .select('id, order_number')
+        .single()
+
+      if (orderError || !orderData) {
+        setSubmitError(t('order.submitError'))
+        setSubmitting(false)
+        return
+      }
+
+      const orderId = orderData.id
+      snap.orderNumber = orderData.order_number
+
+      const itemRows = items.map(item => ({
+        order_id: orderId,
+        item_id: item.id,
+        name_fr: item.name.fr,
+        name_en: item.name.en,
+        size: item.size || null,
+        price: item.price,
+        qty: item.qty,
+      }))
+
+      const { error: itemsError } = await supabase.from('order_items').insert(itemRows)
+      if (itemsError) {
+        // Order created but items failed — still show confirmation
+      }
+
+      await supabase.from('order_status_changes').insert({
+        order_id: orderId,
+        status: 'pending',
+      })
+
+      setSnapshot(snap)
+      setConfirmed(true)
+      clear()
+    } catch {
+      setSubmitError(t('order.submitError'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (confirmed && snapshot) {
@@ -113,6 +181,9 @@ export default function OrderPage() {
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
           </div>
           <h1 className="section-title text-center">{t('order.orderConfirmed')}</h1>
+          {snapshot.orderNumber && (
+            <p className="text-center text-olive-500 text-sm mb-2">{t('order.orderNumber')}: #{snapshot.orderNumber}</p>
+          )}
           <p className="text-olive-700 text-lg mb-6 text-center">{t('order.confirmMsg')}</p>
 
           {/* Summary */}
@@ -278,9 +349,13 @@ export default function OrderPage() {
 
             <p className="text-sm text-olive-500 italic">{t('order.paymentLater')}</p>
 
-            <button type="submit" disabled={items.length === 0}
+            {submitError && (
+              <p className="text-brick-600 text-sm bg-brick-50 rounded-lg px-4 py-2">{submitError}</p>
+            )}
+
+            <button type="submit" disabled={items.length === 0 || submitting}
               className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed">
-              {t('order.placeOrder')}
+              {submitting ? t('order.submitting') : t('order.placeOrder')}
             </button>
           </form>
         </div>

@@ -4,8 +4,9 @@ import { useAuth } from '../../lib/AuthContext'
 import { supabase } from '../../lib/supabase'
 import type { DbMenuItem, DbWeeklyEvent, DbOpenHours, DbSiteSettings, DbGalleryImage } from '../../lib/types'
 import ImageInput from './ImageInput'
+import OrdersSection from './OrdersSection'
 
-type Section = 'pizzas' | 'salads' | 'drinks' | 'desserts' | 'event' | 'hours' | 'settings' | 'alert' | 'orderAlert' | 'gallery'
+type Section = 'pizzas' | 'salads' | 'drinks' | 'desserts' | 'event' | 'hours' | 'settings' | 'alert' | 'orderAlert' | 'gallery' | 'orders'
 
 interface MenuItemForm {
   id?: string
@@ -54,6 +55,7 @@ export default function AdminDashboard() {
     { id: 'settings', label: 'Infos du site' },
     { id: 'alert', label: 'Alerte du site' },
     { id: 'orderAlert', label: 'Alerte commande' },
+    { id: 'orders', label: 'Commandes' },
     { id: 'gallery', label: 'Galerie' },
   ]
 
@@ -102,6 +104,7 @@ export default function AdminDashboard() {
         {section === 'settings' && <SettingsEditor />}
         {section === 'alert' && <AlertEditor />}
         {section === 'orderAlert' && <OrderAlertEditor />}
+        {section === 'orders' && <OrdersSection />}
         {section === 'gallery' && <GalleryEditor />}
       </div>
     </div>

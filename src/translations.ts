@@ -106,6 +106,9 @@ const dict: Dict = {
   'order.orderNotes': { fr: 'Notes / instructions', en: 'Notes / instructions' },
   'order.backHome': { fr: 'Retour à l\'accueil', en: 'Back to home' },
   'order.printOrder': { fr: 'Imprimer la commande', en: 'Print order' },
+  'order.orderNumber': { fr: 'Numéro de commande', en: 'Order number' },
+  'order.submitting': { fr: 'Envoi en cours...', en: 'Submitting...' },
+  'order.submitError': { fr: 'Une erreur est survenue lors de l\'envoi de la commande. Veuillez réessayer.', en: 'An error occurred while submitting your order. Please try again.' },
 
   // About page
   'about.title': { fr: 'À propos de Pointe en folie', en: 'About Pointe en folie' },
