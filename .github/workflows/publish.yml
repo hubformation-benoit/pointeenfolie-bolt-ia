@@ -1,0 +1,35 @@
+name: Publish
+
+on:
+  push:
+    branches: [ "master", "main" ]
+
+jobs:
+  build:
+    runs-on: prod
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - uses: actions/setup-node@v5
+      with:
+        node-version: 24
+
+    - name: Build
+      if: ${{ hashFiles('package.json') != '' }}
+      run: |
+        npm install
+        npm run build
+
+  deployment:
+    runs-on: prod
+    environment: pointe-en-folie
+
+    steps:
+      - name: Deploy dist
+        if: ${{ hashFiles('dist/*') != '' }}
+        run: rsync -avrc --delete dist/ ${{ secrets.TARGET }}
+
+      - name: Deploy
+        if: ${{ hashFiles('dist/*') == '' }}
+        run: rsync -avrc --exclude /.git* --delete . ${{ secrets.TARGET }}
