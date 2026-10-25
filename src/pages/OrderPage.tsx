@@ -91,40 +91,7 @@ export default function OrderPage() {
     }
 
     try {
-      const { data: orderData, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          lang,
-          mode,
-          delivery_date: date,
-          delivery_time: time,
-          customer_name: customer.name,
-          customer_phone: customer.phone,
-          customer_email: customer.email || null,
-          customer_address: mode === 'delivery' ? customer.address || null : null,
-          notes: customer.notes || null,
-          subtotal,
-          discount,
-          promo_code: snap.promoCode || null,
-          tps,
-          tvq,
-          total,
-          current_status: 'pending',
-        })
-        .select('id, order_number')
-        .single()
-
-      if (orderError || !orderData) {
-        setSubmitError(t('order.submitError'))
-        setSubmitting(false)
-        return
-      }
-
-      const orderId = orderData.id
-      snap.orderNumber = orderData.order_number
-
       const itemRows = items.map(item => ({
-        order_id: orderId,
         item_id: item.id,
         name_fr: item.name.fr,
         name_en: item.name.en,
@@ -133,15 +100,33 @@ export default function OrderPage() {
         qty: item.qty,
       }))
 
-      const { error: itemsError } = await supabase.from('order_items').insert(itemRows)
-      if (itemsError) {
-        // Order created but items failed — still show confirmation
+      const { data: orderData, error: orderError } = await supabase
+        .rpc('create_order', {
+          p_lang: lang,
+          p_mode: mode,
+          p_delivery_date: date,
+          p_delivery_time: time,
+          p_customer_name: customer.name,
+          p_customer_phone: customer.phone,
+          p_customer_email: customer.email || null,
+          p_customer_address: mode === 'delivery' ? customer.address || null : null,
+          p_notes: customer.notes || null,
+          p_subtotal: subtotal,
+          p_discount: discount,
+          p_promo_code: snap.promoCode || null,
+          p_tps: tps,
+          p_tvq: tvq,
+          p_total: total,
+          p_items: itemRows,
+        })
+
+      if (orderError || !orderData) {
+        setSubmitError(t('order.submitError'))
+        setSubmitting(false)
+        return
       }
 
-      await supabase.from('order_status_changes').insert({
-        order_id: orderId,
-        status: 'pending',
-      })
+      snap.orderNumber = orderData.order_number
 
       setSnapshot(snap)
       setConfirmed(true)
